@@ -1,0 +1,51 @@
+//{ Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+class Solution{
+    public:
+    int longestUniqueSubsttr(string s){
+        //code
+        
+        int a[26]={0};
+        int i=0,j=0;
+        int c=0;
+        int l=s.size();
+        
+        while(i<l)
+        {
+            if(a[s[i]-'a']!=0)
+            {
+                a[s[j]-'a']--;
+                j++;
+            }
+            else
+            {
+                a[s[i]-'a']++;
+                c=max(c,i-j+1);
+                i++;
+            }
+        }
+        
+        return c;
+        
+    }
+};
+
+//{ Driver Code Starts.
+int main()
+{
+	int t;
+	cin>>t;
+	while(t--)
+	{
+		string str;
+		cin>>str;
+		Solution ob;
+		cout<<ob.longestUniqueSubsttr(str)<<endl;
+	}
+	return 0;
+}
+// } Driver Code Ends
