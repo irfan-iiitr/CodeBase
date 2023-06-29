@@ -1,0 +1,32 @@
+class Solution {
+public:
+vector<vector<int>> ans;
+void helper(vector<int>&arr, int k,int sum,int index,vector<int>&temp)
+{
+    if(sum>k)
+    return;
+
+    if(sum==k){
+    ans.push_back(temp);
+    return;
+    }
+    
+
+    for(int i=index;i<arr.size();i++ )
+    {
+        sum+=arr[i];
+        temp.push_back(arr[i]);
+        helper(arr,k,sum,i,temp);
+        sum-=arr[i];
+        temp.pop_back();
+    }
+
+    return ;
+   
+}
+    vector<vector<int>> combinationSum(vector<int>& arr, int k) {
+        vector<int> temp;
+        helper(arr,k,0,0,temp);
+        return ans;
+    }
+};

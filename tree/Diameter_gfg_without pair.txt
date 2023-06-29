@@ -1,0 +1,14 @@
+   int height(Node* root, int &ans){
+        if(!root) return 0;
+        int l = height(root->left, ans);
+        int r = height(root->right, ans);
+
+        ans = max(ans, 1+l+r); finding diamter...and updating ans. As it is passed by address
+
+        return 1+max(l, r);  //just a normal function for height
+    }
+    int diameter(Node* root){
+        int ans = 0;
+        height(root, ans);
+        return ans;
+    }

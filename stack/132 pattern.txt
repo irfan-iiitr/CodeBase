@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool find132pattern(vector<int>& nums) {
+        
+        int n=nums.size();
+        stack<int> st;
+        st.push(nums[n-1]);  //last element pahle hi push as array starts from n-2..if n-1 thrn no need to push earlier.
+        
+        int thirdElement=INT_MIN;  //isse chota kuch ni....first comparison ke liye 
+        for(int i=n-2;i>=0;i--)
+        {
+            if(nums[i]<thirdElement)
+            return true;
+            else
+            {
+                while(st.empty()!=true and st.top()<nums[i])
+                {
+                    thirdElement=st.top();  //popped all smaller element than nums[i];
+                    st.pop();     //popped all smallest ...we need the largest amonngt them as it will  be compared to the start element ans it must be greater than a[i] element(first one)
+                }
+                st.push(nums[i]); //pushing potential candiatees for nums[j](middle)
+            }
+        }
+
+        return false;
+    }
+};

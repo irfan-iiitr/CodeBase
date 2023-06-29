@@ -1,0 +1,73 @@
+void mapping(Node* root,int target,map<Node*,Node*>&nodetoparent,Node* &start) {
+     queue<Node*>q;
+     q.push(root);
+     nodetoparent[root]=NULL;
+     
+     while(!q.empty()){
+        Node* temp=q.front();
+        q.pop();
+        
+ 
+     if(temp->data==target)
+     start=temp;
+     
+     if(temp->left){
+      nodetoparent[temp->left]=temp;
+      q.push(temp->left);
+     }
+      if(temp->right){
+      nodetoparent[temp->right]=temp;
+      q.push(temp->right);
+     }
+  }
+
+  }
+  
+  int burntree(Node* root,map<Node*,Node*>&nodetoparent){
+     int timeing=0;
+      queue<Node*>q;
+     q.push(root);
+     map<Node*,bool>visited;
+     visited[root]=1;
+     
+     while(!q.empty()){
+              bool flag=0;
+        int size=q.size();
+         
+        for(int i=0;i<size;i++){
+              Node* temp=q.front();
+        q.pop();
+           if(temp->left && !visited[temp->left]) {    //visit left 
+                q.push(temp->left);
+               visited[temp->left]=1;
+               flag=1;
+           }
+            if(temp->right && !visited[temp->right]) {    //visit right 
+               q.push(temp->right);                
+               visited[temp->right]=1;
+               flag=1;
+           }
+           if(nodetoparent[temp] && !visited[nodetoparent[temp]]){   //if parents exist and not visited
+               q.push(nodetoparent[temp]);
+               visited[nodetoparent[temp]]=1;
+               flag=1;
+           }
+        }
+        if(flag==1)
+           timeing++;   //if(any one one is true....left and right and above...
+        
+     }
+     return timeing;
+      
+  }
+    int minTime(Node* root, int target) 
+    {
+        // Your code goes here
+        map<Node*,Node*>nodetoparent;
+        Node* start=NULL;
+        mapping(root,target,nodetoparent,start);
+     
+        int timeing=burntree(start,nodetoparent);
+        return timeing;
+    }
+};
