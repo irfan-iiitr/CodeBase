@@ -1,0 +1,44 @@
+
+//fenwick treee
+const int maxN = 2e5;
+ll a[maxN]={0};
+ll fen[maxN]={0};
+
+void update(int idx,int add,int N){
+    ll diff = add - a[idx];
+    for(int i=idx; i <= N; i += -i&i)
+        fen[i] += diff;
+    a[idx] = add;
+}
+
+ll sum(int idx){
+    ll sum = 0;
+    for(int i = idx; i > 0; i -= -i&i)
+        sum += fen[i];
+    return sum;
+}
+
+
+
+signed main() {
+	IOS
+     
+     ll n,k;
+     cin>>n>>k;
+     
+        for(int i=1;i<=n;i++){  //ffenwick tree is 1 indexed
+            ll x;
+            cin>>x;
+           update(i,x,n);
+        }
+
+        for(int i=0;i<k;i++){
+            ll q,x,y;
+            cin>>q>>x>>y;
+
+            if(q==1) update(x,y,n);
+            else cout<<sum(y)-sum(x-1)<<endl;
+        }
+        
+}
+

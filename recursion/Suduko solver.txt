@@ -1,0 +1,63 @@
+class Solution {
+private:
+bool possible(vector<vector<char>>& board,int row,int col, char ch)
+{
+    for(int i=0;i<9;i++)
+    {
+        if(board[row][i]==ch) return false;
+        if(board[i][col]==ch) return false;
+        if(board[3*(row/3)+ i/3][3*(col/3) + i%3]==ch) return false;
+    }
+    return true;
+}
+
+board[3*(row/3)+ i/3][3*(col/3) + i%3]
+
+3*(row/3) = gives starting row and column
+ (i/3) in row as for loop 1 to 9 ..row will change from 0->1->2
+from 0 1 2 it will remain 0
+from 3 4 5 it will be 1
+//row
+0 0 0   
+1 1 1
+2 2 2
+for i%3...as col wise we have to go in square
+//col
+0 1 2
+0 1 2
+0 1 2
+
+
+bool solve(vector<vector<char>> &board)
+{
+    for(int i=0;i<9;i++)
+    {
+        for(int j=0;j<9;j++)
+        {
+            if(board[i][j]=='.')
+            {
+                for(char k='1';k<='9';k++)
+                {
+                    if(possible(board,i,j,k))
+                    {
+                        board[i][j]=k;
+                        if(solve(board)) //agar solve hogya to return back hote rahega true
+                        return true;
+                        else
+                        board[i][j]='.'; //else backtrack hote hote last se empty space bana dega
+                    }
+                }
+
+                return false;
+                //ek baar bhi return true ni hua...1 se 9 tak to false return...false return hoga to ...board[i][j]='.' ho jayega
+            }
+        }
+    }
+//if found no empty places means board is already solved
+    return true;
+}
+public:
+    void solveSudoku(vector<vector<char>>& board) {
+        solve(board);
+    }
+};

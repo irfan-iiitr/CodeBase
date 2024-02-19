@@ -1,0 +1,18 @@
+stringstream ss(path);
+        vector<string> stack;
+        string word;
+        while(getline(ss, word, '/')){
+            cout<<word<<endl;
+            if(word.empty() || word == ".") continue;
+            if(word == ".."){
+                if(stack.size()) stack.pop_back();
+                continue;
+            }
+            stack.push_back(word);
+        }
+        word = "/";
+        for(auto &i: stack)
+        word+= i + "/";
+
+        if(word.size() > 1) word = word.substr(0, word.size() - 1);
+        return word;
