@@ -1,0 +1,81 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define INF 1e9
+
+#define REP(i, a, b) for (ll i = a; i < b; i++)
+
+const ll nxm = 200000 + 2;
+ll n;
+ll a[nxm];
+ll seg_array[4 * nxm];
+void seg_init(ll ind, ll l, ll r)
+{
+    if (l == r)
+    {
+        seg_array[ind] = a[l];
+        return;
+    }
+    ll mid = l + (r - l) / 2;
+    seg_init(2 * ind + 1, l, mid);
+    seg_init(2 * ind + 2, mid + 1, r);
+    seg_array[ind] = min(seg_array[ind * 2 + 1], seg_array[ind * 2 + 2]);
+}
+void seg_tree_update(ll ind, ll l, ll r, ll tar)
+{
+    if (l == r && l == tar)
+    {
+        seg_array[ind] = a[l];
+        return;
+    }
+    if (tar >= l && tar <= r)
+    {
+        ll mid = l + (r - l) / 2;
+        seg_tree_update(ind * 2 + 1, l, mid, tar);
+        seg_tree_update(ind * 2 + 2, mid + 1, r, tar);
+        seg_array[ind] = min(seg_array[ind * 2 + 1], seg_array[ind * 2 + 2]);
+    }
+}
+ll seg_tree_get(ll ind, ll l, ll r, ll xl, ll xr)
+{
+    if (l >= xl && r <= xr)
+    {
+        return seg_array[ind];
+    }
+    if (l > xr || r < xl)
+    {
+        return INF;
+    }
+    ll mid = l + (r - l) / 2;
+    ll lv = seg_tree_get(ind * 2 + 1, l, mid, xl, xr);
+    ll rv = seg_tree_get(ind * 2 + 2, mid + 1, r, xl, xr);
+    return min(lv, rv);
+}
+
+void solve()
+{
+    ll q;
+    cin >> n >> q;
+    REP(i, 1, n + 1)
+    cin >> a[i];
+    seg_init(0, 1, n);
+    while (q--)
+    {
+        ll x, y, z;
+        cin >> x >> y >> z;
+        if (x == 1)
+        {
+            a[y] = z;
+            seg_tree_update(0, 1, n, y);
+        }
+        else
+        {
+            cout << seg_tree_get(0, 1, n, y, z) << endl;
+        }
+    }
+}
+int main()
+{
+
+    solve();
+}
