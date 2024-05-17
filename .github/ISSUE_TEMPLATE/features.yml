@@ -27,11 +27,7 @@ body:
       label: Are you contributing for a program?
       multiple: true
       options:
-        - value: "GSSoC2024"
-          label: "GSSoC2024"
-    conditions:
-      - id: contribution
-        operator: includes
-        value: "GSSoC2024"
+        - GSSoC2024
+        - Other
     validations:
       required: true
