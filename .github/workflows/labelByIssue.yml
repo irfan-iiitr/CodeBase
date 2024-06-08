@@ -1,28 +1,16 @@
-name: Auto-label GSSoC2024
-
+name: Labeling new issue
 on:
   issues:
-    types: [opened]
-
+    types: ['opened']
 jobs:
-  label:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check if GSSoC2024 option is selected
-        uses: actions/github-script@v5
+      - uses: actions/checkout@v4
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const issue = context.payload.issue;
-            const dropdowns = issue.body.match(/- type: dropdown[\s\S]*?GSSoC2024[\s\S]*?attributes:[\s\S]*?id: contribution[\s\S]*?value:/gm);
-            if (dropdowns && dropdowns.length > 0) {
-              console.log('GSSoC2024 option is selected. Adding label...');
-              await github.issues.addLabels({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: issue.number,
-                labels: ['GSSoC2024']
-              });
-            } else {
-              console.log('GSSoC2024 option is not selected.');
-            }
+          sparse-checkout: |
+            .github/workflows/auto-label.json5
+          sparse-checkout-cone-mode: false
+      - uses: Renato66/auto-label@v3
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
