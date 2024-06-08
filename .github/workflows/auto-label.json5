@@ -1,0 +1,14 @@
+{
+  labelsSynonyms: {
+    bug: ['Bug', 'need fix', 'not working','error'],
+    enhancement: ['upgrade'],
+    question: ['help', 'how can i']
+  },
+  labelsNotAllowed: [
+    'duplicate',
+    'good first issue',
+    'help wanted',
+    'invalid'
+  ],
+  ignoreComments: true
+}
