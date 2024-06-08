@@ -1,16 +1,38 @@
-name: Labeling new issue
+name: Issue labeler
 on:
   issues:
-    types: ['opened']
+    types: [ opened ]
+
+permissions:
+  contents: read
+
 jobs:
-  build:
+  label-component:
     runs-on: ubuntu-latest
+
+    permissions:
+      # required for all workflows
+      issues: write
+
+      # only required for workflows in private repositories
+      actions: read
+      contents: read
+
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
+
+      - name: Parse issue form
+        uses: stefanbuck/github-issue-parser@v3
+        id: issue-parser
         with:
-          sparse-checkout: |
-            .github/workflows/auto-label.json5
-          sparse-checkout-cone-mode: false
-      - uses: Renato66/auto-label@v3
+          template-path: .github/ISSUE_TEMPLATE/features.yml
+
+      - name: Set labels based on severity field
+        uses: redhat-plumbers-in-action/advanced-issue-labeler@v2
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          issue-form: ${{ steps.issue-parser.outputs.jsonString }}
+          section: contribution
+          block-list: |
+            None
+            Other
+          token: ${{ secrets.GITHUB_TOKEN }}
