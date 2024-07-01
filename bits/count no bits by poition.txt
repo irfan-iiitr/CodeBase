@@ -1,0 +1,34 @@
+ while (i =0 to 60) {
+        ll seglen = 1LL << pos;
+        ll fullseg = (n + 1) / (2 * seglen);
+        ll rem = (n + 1) % (2 * seglen);
+
+        ll cnt = fullseg * seglen;
+        cnt += max(0LL, rem - seglen);
+
+       bits[i]=count;
+
+        
+    }
+
+
+
+   int countSetBits(int n)
+    {
+        // Your logic here
+        int b=32-__builtin_clz(n);
+        long long sum=0;
+    for(int i=0;i<b;i++) {
+        ll seglen = 1LL << i;
+        ll fullseg = (n + 1) / (2 * seglen);
+        ll rem = (n + 1) % (2 * seglen);
+
+        ll cnt = fullseg * seglen;
+        cnt += max(0LL, rem - seglen);
+
+      sum+=cnt;
+
+        
+       }
+       
+       return sum;

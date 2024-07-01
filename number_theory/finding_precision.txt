@@ -1,0 +1,17 @@
+double squareRoot(long long n, int d) 
+{	
+	// Write your code here.
+	int ans=findsqrt(n);
+	double step=0.1;
+	double finalans=ans;
+
+	for(int i=0;i<d;i++){
+		for(double j=finalans;j*j<=n;j+=step){
+			finalans=j;
+		}
+		step=step/10;
+	}
+
+	return finalans;
+
+}

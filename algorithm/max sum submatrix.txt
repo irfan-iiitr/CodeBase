@@ -1,0 +1,21 @@
+    int ans=INT_MIN;
+	for(int srow=0;srow<n;srow++){
+
+        vector<int> sum(m,0);
+		//find sum from  given srwo to bottom
+		for(int i=srow;i<n;i++){
+			for(int col=0;col<m;col++){
+				sum[col]+=mat[i][col];
+			}
+
+			int ksum=kadane(sum);
+
+		ans=max(ans,ksum);
+		}
+
+		//apply kadane...
+
+		
+	}
+
+	return ans;

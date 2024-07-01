@@ -1,0 +1,2 @@
+ Find the differentiating bit number:
+    int number = (xr & ~(xr - 1));
