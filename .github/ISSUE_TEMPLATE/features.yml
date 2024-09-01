@@ -1,0 +1,33 @@
+name: 🚀 Feature Request
+description: Create a new ticket for a new feature request
+title: "🚀 [Feature Request] - Title"
+labels: ["enhancement"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        🚀 **Feature Request**
+
+        Thanks for taking the time to fill out this Feature Request report! :memo:
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Is your feature request related to a problem ? Please describe. ✍️
+      description: Enter a brief description about the feature you feel is required.
+      placeholder: Give all the context of your enhancement as well as the existing project.
+      value: "Enhancement"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: contribution
+    attributes:
+      label: Are you contributing for a program?
+      multiple: true
+      options:
+        - GSSoC2024
+        - Other
+    validations:
+      required: true
