@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+class SegmentTree{
+	private:
+	vector<int> tree;
+	int n;
+	void build(int idx,int start,int end,const vector<int>&v){
+		if(start==end){
+			tree[idx]=v[start];
+		}
+		else{
+			int mid=(start+end)/2;
+			build(2*idx+1,start,mid,v);
+			build(2*idx+2,mid+1,end,v);
+			tree[idx]=min(tree[2*idx+1],tree[2*idx+2]);
+		}
+	}
+	int query(int idx,int start,int end,int l,int r){
+		//3 conditions
+		if(r<start or end<l) return INT_MAX;//out of bound
+		if(l<=start and end<=r) return tree[idx]; //complete inside
+		//partial overlap
+
+		int mid=(start+end)/2;
+		int lquery=query(2*idx+1,start,mid,l,r);
+		int rquery=query(2*idx+2,mid+1,end,l,r);
+		return min(lquery,rquery);
+	}
+	
+	public:
+	SegmentTree(const vector<int>& v){
+        n=v.size();
+		tree.resize(4*n,INT_MAX);
+		build(0,0,n-1,v);
+	}
+	int query(int l,int r){
+		return query(0,0,n-1,l,r);
+	}
+};
+
+
+vector<int> fastestHorse(vector<int> &v, vector<vector<int>> &queries)
+{
+	// Write your Code here.
+	SegmentTree seg(v);
+	vector<int> ans;
+	for(auto ele:queries){
+		int l=ele[0],r=ele[1];
+		ans.push_back(seg.query(l-1,r-1));
+	}
+	return ans;
+}
