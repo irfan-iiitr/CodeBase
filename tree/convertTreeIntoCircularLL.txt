@@ -1,0 +1,28 @@
+#include <bits/stdc++.h> 
+void inorder(BinaryTreeNode<int>* root,BinaryTreeNode<int>* &prev,BinaryTreeNode<int>* &head){
+    if(!root) return ;
+
+    inorder(root->left,prev,head);
+    if(prev==NULL){
+        head=root;
+      
+    }
+    else{
+        prev->right=root;
+       // root->left=prev;
+    }
+      prev=root;
+
+   inorder(root->right,prev,head);
+}
+BinaryTreeNode<int>* convertInCircularDLL(BinaryTreeNode<int>* root) {
+    // Write your code here.
+    BinaryTreeNode<int>* prev=NULL;
+    BinaryTreeNode<int>* head=NULL;
+    inorder(root,prev,head);
+    if(head &&  prev){
+        head->left=prev;
+        prev->right=head;
+    }
+    return head;
+}
