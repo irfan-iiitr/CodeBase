@@ -12,7 +12,7 @@ public:
     } // Pure virtual function (Abstract class)
 };
 
-class Circle :public Shape { //: public is necessary here to inherit the draw() function 
+class Circle : public Shape { //: public is necessary here to inherit the draw() function 
     // if not public- error: 'Shape' is an inaccessible base of 'Circle' .. to make Circle publicly inherit from Shape
 public:
     void draw() override {  // override keyword is used to ensure that the function is actually overriding a function in the base class
@@ -30,4 +30,27 @@ int main() {
 
 
 // The user does not need to know how draw() is implemented—only that it exists.
+
+// Without virtual
+// class Shape {
+// public:
+//     void draw() { cout << "Drawing a Shape" << endl; }
+// };
+
+// class Circle : public Shape {
+// public:
+//     void draw() { cout << "Drawing a Circle" << endl; }
+// };
+
+// int main() {
+//     Shape* s = new Circle();
+//     s->draw(); // Output: Drawing a Shape
+//     delete s;
+//     return 0;
+// }
+
+// In short:
+// with virtual you can define a fucntion as in interface whichh can be impmented later
+// The virtual keyword allows derived classes to override base class methods and enables runtime polymorphism.
+// Without virtual, the base class method is always called, even if the pointer points to a derived class object.
 

@@ -40,22 +40,20 @@ public:
     void show() override { cout << "Derived class show()" << endl; } // Function overriding
 };
 
-// int main() {
-//     Base* b = new Derived();
-//     b->show();  // Calls Derived class method due to virtual function
-//     delete b;
-// }
-
-//  b->Base::show();  // Calls Base class's show() explicitly
-
-// Here, even though b is a pointer to Base, the derived class’s show() is called because of runtime polymorphism.
-
-int main(){
-    Derived d;
-    d.show(); // Derived class show()
-    delete &d;
-    return 0;
+int main() {
+    Base* b = new Derived();
+    b->show();  // Calls Derived class method due to virtual function
+    // delete b;
+     b->Base::show();  // Calls Base class's show() explicitly
+     
 }
+
+// int main(){
+//     Derived d;
+//     d.show(); // Derived class show()
+//     delete &d;
+//     return 0;
+// }
 
 // int main() {
 //     Base* b = new Derived();  // Dynamically allocating Derived object, storing in Base pointer
@@ -77,3 +75,22 @@ int main(){
 
 
 
+// class Vehicle {  // Abstract class
+// public:
+//     virtual void accelerate() = 0;  // Pure virtual - no implementation
+//     virtual void brake() = 0;       // Pure virtual - no implementation
+// };
+
+// class Car : public Vehicle {
+// public:
+//     void accelerate() override {    // Must implement
+//         // Car-specific acceleration code
+//     }
+    
+//     void brake() override {         // Must implement  
+//         // Car-specific braking code
+//     }
+// };
+
+// // Vehicle v;  // ERROR - cannot instantiate abstract class
+// Car c;         // OK - Car implements all pure virtual functions

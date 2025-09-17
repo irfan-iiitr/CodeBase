@@ -1,9 +1,9 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
 class BankAccount {
     private:
-        double balance;
+        double balance; //data security - cant access balance directly
     public:
 
     BankAccount(double initialBalance) {
@@ -43,3 +43,15 @@ int main() {
 // providing access to the fields via public methods. It's a protective barrier that keeps the data safe within the class and
 // prevents the data from being modified by external classes or methods.
 
+// BankAccount myAccount(1000); whas the fddiffrence wbtween BankAccount* acc= new BANKACCOUNT(1000) .
+
+// The difference is in object creation and memory management:
+
+// BankAccount myAccount(1000);
+// Creates an object on the stack.
+// Memory is managed automatically; object is destroyed when it goes out of scope.
+// No need to manually delete.
+// BankAccount* acc = new BankAccount(1000);
+// Creates an object on the heap using new.
+// You must manually delete it with delete acc; to avoid memory leaks.
+// Useful if you need the object to outlive the current scope or share it.
